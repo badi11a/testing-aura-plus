@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura+ - Menú Principal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%237C3AED' width='100' height='100'/%3E%3Ctext x='50' y='70' font-size='80' fill='white' text-anchor='middle' font-weight='bold'%3EA%3C/text%3E%3Cpolygon points='50,10 55,25 72,25 60,35 65,50 50,40 35,50 40,35 28,25 45,25' fill='%2306B6D4'/%3E%3C/svg%3E">
+    <style>
+        body {
+            background: #F3F4F6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+        .saldo-card {
+            background: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
+        }
+        .saldo-card h5 {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+        .saldo-card .saldo-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .menu-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .menu-btn {
+            background: white;
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            text-decoration: none;
+            color: #7C3AED;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.1rem;
+        }
+        .menu-btn i {
+            font-size: 1.5rem;
+        }
+        .menu-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.2);
+            color: #06B6D4;
+        }
+        .logout-btn {
+            background: #EF4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+        .logout-btn:hover {
+            background: #DC2626;
+            transform: translateY(-2px);
+        }
+        @media (max-width: 768px) {
+            .saldo-card {
+                padding: 20px;
+            }
+            .saldo-card .saldo-amount {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <span class="navbar-brand">
+                <i class="fas fa-wallet"></i> Aura+
+            </span>
+            <span class="navbar-text text-white ms-auto" id="usuarioDisplay"></span>
+        </div>
+    </nav>
+
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="saldo-card">
+                    <h5>Tu Saldo Actual</h5>
+                    <div class="saldo-amount" id="saldoDisplay">$0</div>
+                </div>
+
+                <div class="menu-buttons">
+                    <a href="deposit.html" class="menu-btn">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Depositar</span>
+                    </a>
+                    <a href="sendmoney.html" class="menu-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Enviar Dinero</span>
+                    </a>
+                    <a href="transactions.html" class="menu-btn">
+                        <i class="fas fa-history"></i>
+                        <span>Últimos Movimientos</span>
+                    </a>
+                </div>
+
+                <div class="text-center">
+                    <button id="btnLogout" class="logout-btn w-100">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Cerrar Sesión
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            const usuario = localStorage.getItem('auraUsuario') || 'Usuario';
+            $('#usuarioDisplay').text(usuario);
+
+            let saldo = localStorage.getItem('auraSaldo');
+            saldo = saldo !== null ? parseInt(saldo, 10) : 0;
+            actualizarVistasSaldo(saldo);
+
+            $('#btnLogout').click(function() {
+                localStorage.removeItem('auraUsuario');
+                window.location.href = 'login.html';
+            });
+
+            function actualizarVistasSaldo(cantidad) {
+                const saldoFormateado = cantidad.toLocaleString('es-CL', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                });
+                $('#saldoDisplay').text('$' + saldoFormateado);
+            }
+        });
+    </script>
+</body>
+</html>

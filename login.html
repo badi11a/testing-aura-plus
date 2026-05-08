@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura+ - Inicio de Sesión</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%237C3AED' width='100' height='100'/%3E%3Ctext x='50' y='70' font-size='80' fill='white' text-anchor='middle' font-weight='bold'%3EA%3C/text%3E%3Cpolygon points='50,10 55,25 72,25 60,35 65,50 50,40 35,50 40,35 28,25 45,25' fill='%2306B6D4'/%3E%3C/svg%3E">
+    <style>
+        body {
+            background: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .login-container {
+            max-width: 400px;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 40px;
+            animation: slideUp 0.6s ease-out;
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .login-header i {
+            font-size: 3rem;
+            color: #7C3AED;
+            margin-bottom: 15px;
+        }
+        .login-header h2 {
+            color: #7C3AED;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .login-header p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            font-size: 0.95rem;
+        }
+        .form-control:focus {
+            border-color: #7C3AED;
+            box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.15);
+        }
+        .btn-login {
+            background: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
+            border: none;
+            padding: 12px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
+            color: white;
+        }
+        .alert {
+            border-radius: 8px;
+            border: none;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-link a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-5">
+                <div class="login-container">
+                    <div class="login-header">
+                        <i class="fas fa-lock"></i>
+                        <h2>Aura+</h2>
+                        <p>Inicia sesión en tu cuenta</p>
+                    </div>
+
+                    <div id="alertMensaje" class="alert" style="display: none;"></div>
+
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="usuario@aura.com" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn btn-login btn-primary w-100 text-white">
+                            <i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i>Iniciar sesión
+                        </button>
+                    </form>
+
+                    <div class="back-link">
+                        <a href="index.html"><i class="fas fa-arrow-left"></i> Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const VALID_EMAIL = 'usuario@aura.com';
+        const VALID_PASSWORD = '123456';
+
+        $(document).ready(function() {
+            $('#loginForm').submit(function(evento) {
+                evento.preventDefault();
+                
+                const email = $('#email').val().trim();
+                const password = $('#password').val();
+
+                if (email === VALID_EMAIL && password === VALID_PASSWORD) {
+                    localStorage.setItem('auraUsuario', email);
+                    window.location.href = 'menu.html';
+                } else {
+                    mostrarError('Email o contraseña incorrectos');
+                    $('#email').val('');
+                    $('#password').val('');
+                }
+            });
+
+            function mostrarError(mensaje) {
+                const $alert = $('#alertMensaje');
+                $alert.removeClass('alert-success').addClass('alert-danger');
+                $alert.html(`<i class="fas fa-exclamation-circle"></i> ${mensaje}`);
+                $alert.slideDown();
+                setTimeout(() => $alert.slideUp(), 5000);
+            }
+        });
+    </script>
+</body>
+</html>

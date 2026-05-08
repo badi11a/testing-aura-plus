@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura+ - Depositar</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%237C3AED' width='100' height='100'/%3E%3Ctext x='50' y='70' font-size='80' fill='white' text-anchor='middle' font-weight='bold'%3EA%3C/text%3E%3Cpolygon points='50,10 55,25 72,25 60,35 65,50 50,40 35,50 40,35 28,25 45,25' fill='%2306B6D4'/%3E%3C/svg%3E">
+    <style>
+        body {
+            background: #F3F4F6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+        .deposit-container {
+            max-width: 500px;
+            margin: 40px auto;
+        }
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .card-header {
+            background: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
+            color: white;
+            border-radius: 12px 12px 0 0;
+            padding: 25px;
+            border: none;
+        }
+        .card-header h4 {
+            margin: 0;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-control {
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            padding: 12px 15px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #7C3AED;
+            box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.15);
+        }
+        .form-label {
+            font-weight: 600;
+            color: #7C3AED;
+            margin-bottom: 8px;
+        }
+        .btn-deposit {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            border: none;
+            padding: 12px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        .btn-deposit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+            color: white;
+        }
+        .alert {
+            border-radius: 8px;
+            border: none;
+            animation: slideIn 0.3s ease-out;
+        }
+        .alert-success {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .alert-danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .back-btn {
+            background: #f1f5f9;
+            color: #7C3AED;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        .back-btn:hover {
+            background: #e2e8f0;
+            color: #06B6D4;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .input-group-text {
+            background: white;
+            border: 2px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a href="menu.html" class="navbar-brand" style="cursor: pointer;">
+                <i class="fas fa-wallet"></i> Aura+
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="deposit-container">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-plus-circle"></i> Depositar Dinero</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div id="alertMensaje" class="alert" style="display: none;"></div>
+
+                    <form id="depositForm">
+                        <div class="mb-4">
+                            <label for="inputDeposito" class="form-label">Monto a depositar (CLP)</label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="border-radius: 8px 0 0 8px;">$</span>
+                                <input type="number" 
+                                       class="form-control" 
+                                       id="inputDeposito" 
+                                       placeholder="0" 
+                                       step="1" 
+                                       min="1" 
+                                       required>
+                            </div>
+                            <small class="text-muted d-block mt-2">Mínimo: $1 | Sin decimales</small>
+                        </div>
+                        <button type="submit" class="btn btn-deposit w-100">
+                            <i class="fas fa-check"></i> Realizar depósito
+                        </button>
+                    </form>
+
+                    <a href="menu.html" class="back-btn w-100 text-center">
+                        <i class="fas fa-arrow-left"></i> Volver al Menú
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            let saldoActual = localStorage.getItem('auraSaldo');
+            saldoActual = saldoActual !== null ? parseInt(saldoActual, 10) : 0;
+
+            $('#depositForm').submit(function(evento) {
+                evento.preventDefault();
+
+                const montoIngresado = $('#inputDeposito').val().trim();
+                const monto = parseInt(montoIngresado, 10);
+
+                if (!montoIngresado || monto <= 0) {
+                    mostrarError('El monto debe ser mayor a $0');
+                    return;
+                }
+
+                const nuevoSaldo = saldoActual + monto;
+                localStorage.setItem('auraSaldo', nuevoSaldo.toString());
+
+                const historial = JSON.parse(localStorage.getItem('auraHistorial')) || [];
+                const movimiento = {
+                    tipo: 'Depósito',
+                    descripcion: 'Depósito de fondos',
+                    monto: monto.toString(),
+                    fecha: new Date().toLocaleDateString('es-CL'),
+                    esIngreso: true
+                };
+
+                historial.unshift(movimiento);
+                localStorage.setItem('auraHistorial', JSON.stringify(historial));
+
+                const saldoFormateado = nuevoSaldo.toLocaleString('es-CL', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                });
+
+                mostrarExito(`¡Depósito exitoso! Nuevo saldo: $${saldoFormateado}`);
+                $('#inputDeposito').val('');
+                saldoActual = nuevoSaldo;
+            });
+
+            function mostrarError(mensaje) {
+                const $alert = $('#alertMensaje');
+                $alert.removeClass('alert-success').addClass('alert-danger');
+                $alert.html(`<i class="fas fa-exclamation-circle"></i> ${mensaje}`);
+                $alert.slideDown();
+            }
+
+            function mostrarExito(mensaje) {
+                const $alert = $('#alertMensaje');
+                $alert.removeClass('alert-danger').addClass('alert-success');
+                $alert.html(`<i class="fas fa-check-circle"></i> ${mensaje}`);
+                $alert.slideDown();
+            }
+        });
+    </script>
+</body>
+</html>
