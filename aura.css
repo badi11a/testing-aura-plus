@@ -585,6 +585,109 @@ body.page-auth {
 }
 
 /* ===========================
+   LANDING (index.html)
+   =========================== */
+.hero-content {
+    text-align: center;
+    color: white;
+    animation: slideUp 0.6s ease-out;
+    padding: 60px 20px;
+}
+
+.version-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: transparent;
+    border: 1px solid rgba(59, 125, 216, 0.28);
+    color: rgba(147, 184, 232, 0.80);
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 0.70rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.version-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--secondary);
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.35; }
+}
+
+.hero-icon {
+    font-size: 3.4rem;
+    margin-bottom: 18px;
+    color: var(--secondary);
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+    letter-spacing: -1px;
+}
+
+.hero-content > p {
+    font-size: 1.1rem;
+    margin-bottom: 32px;
+    opacity: 0.65;
+}
+
+.hero-feature-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 38px;
+}
+
+.hero-feature-list li {
+    font-size: 0.98rem;
+    margin-bottom: 13px;
+    opacity: 0.78;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.hero-feature-list i {
+    color: var(--secondary);
+    width: 18px;
+    text-align: center;
+}
+
+.btn-landing {
+    background: var(--gradient);
+    color: white;
+    padding: 14px 38px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 26px rgba(10, 20, 50, 0.42);
+    letter-spacing: 0.3px;
+}
+
+.btn-landing:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 34px rgba(10, 20, 50, 0.54);
+    color: white;
+}
+
+/* ===========================
    RESPONSIVE
    =========================== */
 @media (max-width: 768px) {
