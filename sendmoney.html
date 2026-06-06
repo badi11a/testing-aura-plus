@@ -6,186 +6,13 @@
     <title>Aura+ - Enviar Dinero</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="aura.css">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%237C3AED' width='100' height='100'/%3E%3Ctext x='50' y='70' font-size='80' fill='white' text-anchor='middle' font-weight='bold'%3EA%3C/text%3E%3Cpolygon points='50,10 55,25 72,25 60,35 65,50 50,40 35,50 40,35 28,25 45,25' fill='%2306B6D4'/%3E%3C/svg%3E">
-    <style>
-        body {
-            background: #F3F4F6;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .navbar {
-            background: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.3rem;
-        }
-        .send-container {
-            max-width: 700px;
-            margin: 30px auto;
-        }
-        .card {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            margin-bottom: 20px;
-        }
-        .card-header {
-            background: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
-            color: white;
-            border-radius: 12px 12px 0 0;
-            padding: 20px;
-            border: none;
-        }
-        .card-header h5 {
-            margin: 0;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .form-control {
-            border-radius: 8px;
-            border: 2px solid #e2e8f0;
-            padding: 10px 12px;
-            font-size: 0.95rem;
-        }
-        .form-control:focus {
-            border-color: #7C3AED;
-            box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.15);
-        }
-        .contact-item {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-        .contact-item:hover {
-            border-color: #7C3AED;
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
-        }
-        .contact-info strong {
-            display: block;
-            color: #7C3AED;
-            margin-bottom: 4px;
-        }
-        .contact-info small {
-            color: #666;
-        }
-        .btn-select {
-            background: #7C3AED;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 8px 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .btn-select:hover {
-            background: #06B6D4;
-            transform: translateY(-2px);
-        }
-        .btn-delete {
-            background: #EF4444;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 6px 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-left: 8px;
-        }
-        .btn-delete:hover {
-            background: #DC2626;
-            transform: translateY(-2px);
-        }
-        .btn-add-contact {
-            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px;
-            width: 100%;
-            font-weight: 600;
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .btn-add-contact:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
-        }
-        .btn-back {
-            background: #f1f5f9;
-            color: #7C3AED;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 15px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            width: 100%;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        .btn-back:hover {
-            background: #e2e8f0;
-            color: #06B6D4;
-        }
-        .modal-header {
-            background: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
-            color: white;
-            border: none;
-        }
-        .modal-header .btn-close {
-            filter: brightness(0) invert(1);
-        }
-        .form-label {
-            font-weight: 600;
-            color: #7C3AED;
-        }
-        .alert {
-            border-radius: 8px;
-            border: none;
-            animation: slideIn 0.3s ease-out;
-        }
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .no-contacts {
-            text-align: center;
-            padding: 30px;
-            color: #666;
-        }
-        .no-contacts i {
-            font-size: 3rem;
-            color: #cbd5e1;
-            margin-bottom: 15px;
-            display: block;
-        }
-    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a href="menu.html" class="navbar-brand" style="cursor: pointer;">
+            <a href="menu.html" class="navbar-brand">
                 <i class="fas fa-wallet"></i> Aura+
             </a>
         </div>
@@ -200,10 +27,7 @@
                     <h5><i class="fas fa-search"></i> Buscar Contacto</h5>
                 </div>
                 <div class="card-body">
-                    <input type="text" 
-                           class="form-control" 
-                           id="searchInput" 
-                           placeholder="Buscar por nombre...">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar por nombre...">
                 </div>
             </div>
 
@@ -220,12 +44,13 @@
                 </div>
             </div>
 
-            <a href="menu.html" class="btn-back">
+            <a href="menu.html" class="back-btn">
                 <i class="fas fa-arrow-left"></i> Volver al Menú
             </a>
         </div>
     </div>
 
+    <!-- Modal: Agregar contacto -->
     <div class="modal fade" id="addContactModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -234,6 +59,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
+                    <div id="addContactError" class="alert alert-danger" style="display: none;"></div>
                     <form id="addContactForm">
                         <div class="mb-3">
                             <label for="newContactName" class="form-label">Nombre</label>
@@ -278,6 +104,7 @@
         </div>
     </div>
 
+    <!-- Modal: Transferencia -->
     <div class="modal fade" id="transferModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -286,22 +113,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="mb-3">
-                        Enviando a: <strong id="transferContactName"></strong>
-                    </p>
+                    <p class="mb-3">Enviando a: <strong id="transferContactName"></strong></p>
                     <div id="transferError" class="alert" style="display: none;"></div>
                     <form id="transferForm">
                         <div class="mb-4">
                             <label for="transferAmount" class="form-label">Monto a transferir (CLP)</label>
                             <div class="input-group">
                                 <span class="input-group-text" style="border-radius: 8px 0 0 8px; border: 2px solid #e2e8f0; background: white;">$</span>
-                                <input type="number" 
-                                       class="form-control" 
-                                       id="transferAmount" 
-                                       placeholder="0" 
-                                       step="1" 
-                                       min="1" 
-                                       required>
+                                <input type="number" class="form-control" id="transferAmount"
+                                       placeholder="0" step="1" min="1" required>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">
@@ -315,59 +135,41 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/validators.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/auth.js"></script>
 
     <script>
         let contactoSeleccionado = null;
         let saldoActual = 0;
 
         $(document).ready(function() {
+            if (!AuraAuth.requireSesion()) return;
+
             inicializarContactos();
-            cargarSaldo();
-            configuraEventos();
+            saldoActual = AuraStorage.getSaldo();
+            configurarEventos();
             actualizarListaContactos();
         });
 
         function inicializarContactos() {
-            const contactosPredefinidos = [
-                {
-                    id: 1,
-                    nombre: 'Juan Pérez',
-                    rut: '12.345.678-9',
-                    banco: 'Banco Estado',
-                    tipo: 'Cuenta Corriente',
-                    numero: '123456789'
-                },
-                {
-                    id: 2,
-                    nombre: 'María González',
-                    rut: '9.876.543-2',
-                    banco: 'Banco de Chile',
-                    tipo: 'Cuenta de Ahorro',
-                    numero: '987654321'
-                },
-                {
-                    id: 3,
-                    nombre: 'Carlos Tapia',
-                    rut: '15.111.222-3',
-                    banco: 'Santander',
-                    tipo: 'Cuenta Rut / Vista',
-                    numero: '555666777'
-                }
-            ];
-
-            if (!localStorage.getItem('auraContactos')) {
-                localStorage.setItem('auraContactos', JSON.stringify(contactosPredefinidos));
-            }
+            if (AuraStorage.getContactos().length > 0) return;
+            AuraStorage.setContactos([
+                { id: 1, nombre: 'Juan Pérez',      rut: '12.345.678-9', banco: 'Banco Estado',  tipo: 'Cuenta Corriente',  numero: '123456789' },
+                { id: 2, nombre: 'María González',  rut: '9.876.543-2',  banco: 'Banco de Chile', tipo: 'Cuenta de Ahorro',  numero: '987654321' },
+                { id: 3, nombre: 'Carlos Tapia',    rut: '15.111.222-3', banco: 'Santander',      tipo: 'Cuenta Rut / Vista', numero: '555666777' }
+            ]);
         }
 
-        function cargarSaldo() {
-            const saldo = localStorage.getItem('auraSaldo');
-            saldoActual = saldo !== null ? parseInt(saldo, 10) : 0;
-        }
-
-        function configuraEventos() {
+        function configurarEventos() {
             $('#searchInput').on('keyup', function() {
                 actualizarListaContactos($(this).val().toLowerCase());
+            });
+
+            document.getElementById('addContactModal').addEventListener('show.bs.modal', function() {
+                $('#addContactError').hide();
             });
 
             $('#addContactForm').submit(function(evento) {
@@ -379,172 +181,166 @@
                 evento.preventDefault();
                 realizarTransferencia();
             });
-        }
 
-        function actualizarListaContactos(filtro = '') {
-            const contactos = JSON.parse(localStorage.getItem('auraContactos')) || [];
-            const contactosFiltrados = contactos.filter(c => 
-                c.nombre.toLowerCase().includes(filtro)
-            );
+            $('#transferAmount').on('invalid', function() {
+                if (this.validity.valueMissing) this.setCustomValidity('Por favor ingresa un monto');
+                else if (this.validity.rangeUnderflow) this.setCustomValidity('El monto debe ser mayor a $0');
+                else this.setCustomValidity('');
+            }).on('input', function() { this.setCustomValidity(''); });
 
-            $('#contactCount').text(contactosFiltrados.length);
-            const $lista = $('#contactList');
-            $lista.empty();
+            ['#newContactName', '#newContactRUT', '#newContactNumber'].forEach(function(sel) {
+                $(sel).on('invalid', function() {
+                    this.setCustomValidity(this.validity.valueMissing ? 'Este campo es obligatorio' : '');
+                }).on('input', function() { this.setCustomValidity(''); });
+            });
 
-            if (contactosFiltrados.length === 0) {
-                $lista.html(`
-                    <div class="no-contacts">
-                        <i class="fas fa-inbox"></i>
-                        <p>No hay contactos que coincidan con la búsqueda</p>
-                    </div>
-                `);
-                return;
-            }
+            ['#newContactBank', '#newContactType'].forEach(function(sel) {
+                $(sel).on('invalid', function() {
+                    this.setCustomValidity(this.validity.valueMissing ? 'Selecciona una opción' : '');
+                }).on('change', function() { this.setCustomValidity(''); });
+            });
 
-            contactosFiltrados.forEach(contacto => {
-                const itemHTML = `
-                    <div class="contact-item">
-                        <div class="contact-info">
-                            <strong>${contacto.nombre}</strong>
-                            <small>RUT: ${contacto.rut} | ${contacto.banco}</small>
-                            <small class="d-block">${contacto.tipo} - ${contacto.numero}</small>
-                        </div>
-                        <div>
-                            <button type="button" class="btn-select" onclick="seleccionarContacto('${contacto.nombre}', ${contacto.id})">
-                                <i class="fas fa-arrow-right"></i> Enviar
-                            </button>
-                            <button type="button" class="btn-delete" onclick="eliminarContacto(${contacto.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                $lista.append(itemHTML);
+            // Delegación de eventos: evita onclick inline con datos de usuario
+            $(document).on('click', '.btn-select', function() {
+                seleccionarContacto(parseInt($(this).data('id'), 10));
+            });
+
+            $(document).on('click', '.btn-delete', function() {
+                eliminarContacto(parseInt($(this).data('id'), 10));
             });
         }
 
-        function seleccionarContacto(nombre, id) {
-            const contactos = JSON.parse(localStorage.getItem('auraContactos')) || [];
-            contactoSeleccionado = contactos.find(c => c.id === id);
-            
-            if (contactoSeleccionado) {
-                $('#transferContactName').text(nombre);
-                $('#transferAmount').val('');
-                $('#transferError').hide();
-                const modal = new bootstrap.Modal(document.getElementById('transferModal'));
-                modal.show();
-            }
-        }
+        function actualizarListaContactos(filtro = '') {
+            const contactos = AuraStorage.getContactos();
+            const filtrados = contactos.filter(c => c.nombre.toLowerCase().includes(filtro));
 
-        function realizarTransferencia() {
-            const montoIngresado = $('#transferAmount').val().trim();
-            const monto = parseInt(montoIngresado, 10);
+            $('#contactCount').text(filtrados.length);
+            const $lista = $('#contactList').empty();
 
-            if (!montoIngresado || monto <= 0) {
-                mostrarErrorTransferencia('El monto debe ser mayor a $0');
+            if (filtrados.length === 0) {
+                const $vacio = $('<div class="no-contacts">');
+                $vacio.append($('<i class="fas fa-inbox">'));
+                $vacio.append($('<p>').text('No hay contactos que coincidan con la búsqueda'));
+                $lista.append($vacio);
                 return;
             }
 
+            filtrados.forEach(contacto => {
+                const $item = $('<div class="contact-item">');
+
+                const $info = $('<div class="contact-info">');
+                $info.append($('<strong>').text(contacto.nombre));
+                $info.append($('<small>').text(`RUT: ${contacto.rut} | ${contacto.banco}`));
+                $info.append($('<small class="d-block">').text(`${contacto.tipo} - ${contacto.numero}`));
+
+                const $acciones = $('<div>');
+                $acciones.append(
+                    $('<button type="button" class="btn-select">').attr('data-id', contacto.id)
+                        .html('<i class="fas fa-arrow-right"></i> Enviar')
+                );
+                $acciones.append(
+                    $('<button type="button" class="btn-delete">').attr('data-id', contacto.id)
+                        .html('<i class="fas fa-trash"></i>')
+                );
+
+                $item.append($info).append($acciones);
+                $lista.append($item);
+            });
+        }
+
+        function seleccionarContacto(id) {
+            contactoSeleccionado = AuraStorage.getContactos().find(c => c.id === id) || null;
+            if (!contactoSeleccionado) return;
+
+            $('#transferContactName').text(contactoSeleccionado.nombre);
+            $('#transferAmount').val('');
+            $('#transferError').hide();
+            new bootstrap.Modal(document.getElementById('transferModal')).show();
+        }
+
+        function realizarTransferencia() {
+            const resultado = AuraValidators.validarMonto($('#transferAmount').val().trim());
+            if (!resultado.ok) {
+                AuraUI.mostrarError('#transferError', resultado.error);
+                return;
+            }
+
+            const { monto } = resultado;
             if (monto > saldoActual) {
-                mostrarErrorTransferencia('Fondos insuficientes para realizar la transferencia');
+                AuraUI.mostrarError('#transferError', `Fondos insuficientes. Tu saldo disponible es ${AuraUI.formatCLP(saldoActual)}`);
                 return;
             }
 
             const nuevoSaldo = saldoActual - monto;
-            localStorage.setItem('auraSaldo', nuevoSaldo.toString());
-
-            const historial = JSON.parse(localStorage.getItem('auraHistorial')) || [];
-            const movimiento = {
+            AuraStorage.setSaldo(nuevoSaldo);
+            AuraStorage.pushMovimiento({
                 tipo: 'Transferencia',
                 descripcion: `Transferencia a ${contactoSeleccionado.nombre}`,
                 monto: monto.toString(),
-                fecha: new Date().toLocaleDateString('es-CL'),
+                fecha: new Date().toLocaleDateString(AURA_CONFIG.LOCALE),
                 esIngreso: false
-            };
+            });
 
-            historial.unshift(movimiento);
-            localStorage.setItem('auraHistorial', JSON.stringify(historial));
+            bootstrap.Modal.getInstance(document.getElementById('transferModal')).hide();
 
-            const modal = bootstrap.Modal.getInstance(document.getElementById('transferModal'));
-            modal.hide();
-
-            mostrarExito(`¡Transferencia exitosa a ${contactoSeleccionado.nombre}!`);
             saldoActual = nuevoSaldo;
+            AuraUI.mostrarExito('#alertMensaje', `¡Transferencia exitosa a ${contactoSeleccionado.nombre}!`, 5000);
         }
 
         function agregarContacto() {
-            const nombre = $('#newContactName').val().trim();
-            const rut = $('#newContactRUT').val().trim();
-            const banco = $('#newContactBank').val();
-            const tipo = $('#newContactType').val();
-            const numero = $('#newContactNumber').val().trim();
+            const nombre  = $('#newContactName').val().trim();
+            const rut     = $('#newContactRUT').val().trim();
+            const banco   = $('#newContactBank').val();
+            const tipo    = $('#newContactType').val();
+            const numero  = $('#newContactNumber').val().trim();
 
             if (!nombre || !rut || !banco || !tipo || !numero) {
-                mostrarError('Todos los campos son obligatorios');
+                AuraUI.mostrarError('#addContactError', 'Todos los campos son obligatorios');
+                return;
+            }
+            if (!AuraValidators.validarNombre(nombre)) {
+                AuraUI.mostrarError('#addContactError', 'El nombre solo puede contener letras y espacios');
+                return;
+            }
+            if (!AuraValidators.validarRUT(rut)) {
+                AuraUI.mostrarError('#addContactError', 'RUT inválido. Formato esperado: 12.345.678-9');
+                return;
+            }
+            if (!AuraValidators.validarNumeroCuenta(numero)) {
+                AuraUI.mostrarError('#addContactError', 'El número de cuenta solo puede contener dígitos');
                 return;
             }
 
-            const contactos = JSON.parse(localStorage.getItem('auraContactos')) || [];
+            const contactos = AuraStorage.getContactos();
+            const rutLimpio = rut.replace(/\./g, '').replace(/-/g, '').toUpperCase();
+            const duplicado = contactos.find(c => c.rut.replace(/\./g, '').replace(/-/g, '').toUpperCase() === rutLimpio);
+            if (duplicado) {
+                AuraUI.mostrarError('#addContactError', `Ya existe un contacto con ese RUT: "${duplicado.nombre}"`);
+                return;
+            }
+
             const nuevoId = Math.max(...contactos.map(c => c.id), 0) + 1;
+            contactos.push({ id: nuevoId, nombre, rut, banco, tipo, numero });
+            AuraStorage.setContactos(contactos);
 
-            const nuevoContacto = {
-                id: nuevoId,
-                nombre,
-                rut,
-                banco,
-                tipo,
-                numero
-            };
-
-            contactos.push(nuevoContacto);
-            localStorage.setItem('auraContactos', JSON.stringify(contactos));
-
-            const modal = bootstrap.Modal.getInstance(document.getElementById('addContactModal'));
-            modal.hide();
-
+            bootstrap.Modal.getInstance(document.getElementById('addContactModal')).hide();
             $('#addContactForm')[0].reset();
             actualizarListaContactos();
-            mostrarExito(`Contacto "${nombre}" agregado exitosamente`);
+            AuraUI.mostrarExito('#alertMensaje', `Contacto "${nombre}" agregado exitosamente`, 5000);
         }
 
         function eliminarContacto(id) {
-            if (!confirm('¿Estás seguro de que deseas eliminar este contacto?')) {
-                return;
-            }
+            if (!confirm('¿Estás seguro de que deseas eliminar este contacto?')) return;
 
-            const contactos = JSON.parse(localStorage.getItem('auraContactos')) || [];
-            const indexToDelete = contactos.findIndex(c => c.id === id);
-            
-            if (indexToDelete !== -1) {
-                const nombreEliminado = contactos[indexToDelete].nombre;
-                contactos.splice(indexToDelete, 1);
-                localStorage.setItem('auraContactos', JSON.stringify(contactos));
-                actualizarListaContactos();
-                mostrarExito(`Contacto "${nombreEliminado}" eliminado exitosamente`);
-            }
-        }
+            const contactos = AuraStorage.getContactos();
+            const idx = contactos.findIndex(c => c.id === id);
+            if (idx === -1) return;
 
-        function mostrarError(mensaje) {
-            const $alert = $('#alertMensaje');
-            $alert.removeClass('alert-success').addClass('alert-danger');
-            $alert.html(`<i class="fas fa-exclamation-circle"></i> ${mensaje}`);
-            $alert.slideDown();
-            setTimeout(() => $alert.slideUp(), 5000);
-        }
-
-        function mostrarErrorTransferencia(mensaje) {
-            const $alert = $('#transferError');
-            $alert.removeClass('alert-success').addClass('alert-danger');
-            $alert.html(`<i class="fas fa-exclamation-circle"></i> ${mensaje}`);
-            $alert.slideDown();
-        }
-
-        function mostrarExito(mensaje) {
-            const $alert = $('#alertMensaje');
-            $alert.removeClass('alert-danger').addClass('alert-success');
-            $alert.html(`<i class="fas fa-check-circle"></i> ${mensaje}`);
-            $alert.slideDown();
-            setTimeout(() => $alert.slideUp(), 5000);
+            const nombreEliminado = contactos[idx].nombre;
+            contactos.splice(idx, 1);
+            AuraStorage.setContactos(contactos);
+            actualizarListaContactos();
+            AuraUI.mostrarExito('#alertMensaje', `Contacto "${nombreEliminado}" eliminado exitosamente`, 5000);
         }
     </script>
 </body>
