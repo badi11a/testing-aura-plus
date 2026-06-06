@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura+ - Mi Perfil</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="aura.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%237C3AED' width='100' height='100'/%3E%3Ctext x='50' y='70' font-size='80' fill='white' text-anchor='middle' font-weight='bold'%3EA%3C/text%3E%3Cpolygon points='50,10 55,25 72,25 60,35 65,50 50,40 35,50 40,35 28,25 45,25' fill='%2306B6D4'/%3E%3C/svg%3E">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a href="menu.html" class="navbar-brand">
+                <i class="fas fa-wallet"></i> Aura+
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="deposit-container">
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-user-circle"></i> Nombre de Perfil</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div id="alertPerfil" class="alert" style="display: none;"></div>
+                    <div class="mb-4">
+                        <label for="nombrePerfil" class="form-label">Nombre visible en la app</label>
+                        <!-- H3: sin maxlength — un nombre muy largo rompe el diseño del menú -->
+                        <input type="text" class="form-control" id="nombrePerfil"
+                               placeholder="Ej: María González">
+                        <small class="text-muted d-block mt-2">Este nombre aparecerá en el menú principal.</small>
+                    </div>
+                    <button id="btnGuardarNombre" class="btn btn-deposit w-100">
+                        <i class="fas fa-save"></i> Guardar nombre
+                    </button>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-shield-alt"></i> Límite de Transferencia Diario</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div id="alertLimite" class="alert" style="display: none;"></div>
+                    <p class="text-muted small mb-3">Establece el monto máximo que puedes transferir en una sola operación. Ingresa 0 para desactivar el límite.</p>
+                    <div class="mb-4">
+                        <label for="limiteDiario" class="form-label">Monto límite (CLP)</label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="border-radius: 8px 0 0 8px; border: 2px solid #e2e8f0; background: white;">$</span>
+                            <!-- H1: el campo no se puebla desde localStorage al cargar la página -->
+                            <input type="number" class="form-control" id="limiteDiario"
+                                   placeholder="0" step="1">
+                        </div>
+                    </div>
+                    <button id="btnGuardarLimite" class="btn btn-deposit w-100">
+                        <i class="fas fa-save"></i> Guardar límite
+                    </button>
+                </div>
+            </div>
+
+            <a href="menu.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Volver al Menú
+            </a>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/validators.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/auth.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            if (!AuraAuth.requireSesion()) return;
+
+            $('#nombrePerfil').val(AuraStorage.getPerfil() || '');
+
+            // H1: el límite guardado NO se carga — el campo siempre empieza vacío
+
+            $('#btnGuardarNombre').click(function() {
+                const nombre = $('#nombrePerfil').val().trim();
+                // D1: no se valida si el nombre está vacío
+                AuraStorage.setPerfil(nombre);
+                AuraUI.mostrarExito('#alertPerfil', 'Nombre guardado correctamente', 3000);
+            });
+
+            $('#btnGuardarLimite').click(function() {
+                const valor = $('#limiteDiario').val().trim();
+                const monto = parseInt(valor, 10);
+                if (isNaN(monto)) {
+                    AuraUI.mostrarError('#alertLimite', 'Ingresa un monto válido');
+                    return;
+                }
+                // D2: no se valida si el monto es negativo
+                AuraStorage.setLimite(monto);
+                AuraUI.mostrarExito('#alertLimite', 'Límite guardado correctamente', 3000);
+            });
+        });
+    </script>
+</body>
+</html>

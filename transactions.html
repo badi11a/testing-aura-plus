@@ -25,6 +25,17 @@
                 <div class="saldo-amount" id="saldoDisplay">$0</div>
             </div>
 
+            <div class="card mb-3">
+                <div class="card-body p-3">
+                    <div class="input-group">
+                        <span class="input-group-text" style="border: 2px solid #e2e8f0; background: white;">
+                            <i class="fas fa-search" style="color: #7C3AED;"></i>
+                        </span>
+                        <input type="text" class="form-control" id="searchTx" placeholder="Buscar movimientos...">
+                    </div>
+                </div>
+            </div>
+
             <div class="card">
                 <div class="card-header">
                     <h5><i class="fas fa-history"></i> Últimos Movimientos</h5>
@@ -66,27 +77,57 @@
                 return;
             }
 
-            historial.forEach(movimiento => {
-                const esIngreso = movimiento.esIngreso === true;
-                const signo = esIngreso ? '+' : '-';
-                const claseColor = esIngreso ? 'amount-ingreso' : 'amount-egreso';
-                const icono = esIngreso ? 'fa-arrow-down' : 'fa-arrow-up';
+            // H2: se restaura el filtro desde sessionStorage al volver a la página
+            const filtroGuardado = sessionStorage.getItem('auraFiltroTx') || '';
+            $('#searchTx').val(filtroGuardado);
+            renderMovimientos(filtroGuardado ? filtrarLista(filtroGuardado) : historial);
 
-                const $item = $('<div class="transaction-item">');
-
-                const $info = $('<div class="transaction-info">');
-                const $h6 = $('<h6>').append($(`<i class="fas ${icono}" style="margin-right: 8px;">`));
-                $h6.append(document.createTextNode(movimiento.tipo));
-                $info.append($h6);
-                $info.append($('<p>').text(movimiento.descripcion));
-                $info.append($('<small class="text-muted">').text(movimiento.fecha));
-
-                const montoFormateado = AuraUI.formatCLP(parseInt(movimiento.monto));
-                const $monto = $(`<div class="transaction-amount ${claseColor}">`).text(`${signo}${montoFormateado}`);
-
-                $item.append($info).append($monto);
-                $lista.append($item);
+            $('#searchTx').on('keyup', function() {
+                const termino = $(this).val();
+                sessionStorage.setItem('auraFiltroTx', termino); // H2: persiste al navegar
+                renderMovimientos(filtrarLista(termino));
             });
+
+            function filtrarLista(termino) {
+                if (!termino) return historial;
+                // D3: búsqueda sensible a mayúsculas — no se aplica toLowerCase
+                return historial.filter(m =>
+                    m.descripcion.includes(termino) || m.tipo.includes(termino)
+                );
+            }
+
+            function renderMovimientos(lista) {
+                $lista.empty();
+                if (lista.length === 0) {
+                    const $vacio = $('<div class="empty-state">');
+                    $vacio.append($('<i class="fas fa-search">'));
+                    $vacio.append($('<p>').text('No se encontraron movimientos'));
+                    $lista.append($vacio);
+                    return;
+                }
+                lista.forEach(function(movimiento) {
+                    const esIngreso = movimiento.esIngreso === true;
+                    const signo = esIngreso ? '+' : '-';
+                    const claseColor = esIngreso ? 'amount-ingreso' : 'amount-egreso';
+                    const icono = esIngreso ? 'fa-arrow-down' : 'fa-arrow-up';
+
+                    const $item = $('<div class="transaction-item">');
+
+                    const $info = $('<div class="transaction-info">');
+                    const $h6 = $('<h6>').append($('<i class="fas ' + icono + '" style="margin-right: 8px;">'));
+                    $h6.append(document.createTextNode(movimiento.tipo));
+                    $info.append($h6);
+                    $info.append($('<p>').text(movimiento.descripcion));
+                    $info.append($('<small class="text-muted">').text(movimiento.fecha));
+                    $info.append($('<small class="text-muted d-block">').text('Categoría: ' + movimiento.categoria));
+
+                    const montoFormateado = AuraUI.formatCLP(parseInt(movimiento.monto));
+                    const $monto = $('<div class="transaction-amount ' + claseColor + '">').text(signo + montoFormateado);
+
+                    $item.append($info).append($monto);
+                    $lista.append($item);
+                });
+            }
         });
     </script>
 </body>

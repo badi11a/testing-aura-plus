@@ -26,5 +26,11 @@ const AuraStorage = {
         try { return JSON.parse(localStorage.getItem('auraContactos')) || []; }
         catch { return []; }
     },
-    setContactos: (contactos) => localStorage.setItem('auraContactos', JSON.stringify(contactos))
+    setContactos: (contactos) => localStorage.setItem('auraContactos', JSON.stringify(contactos)),
+
+    getPerfil: () => localStorage.getItem('auraNombrePerfil'),
+    setPerfil: (nombre) => localStorage.setItem('auraNombrePerfil', nombre),
+
+    getLimite: () => localStorage.getItem('auraLimiteDiario'),
+    setLimite: (monto) => localStorage.setItem('auraLimiteDiario', String(monto))
 };

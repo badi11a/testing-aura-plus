@@ -124,6 +124,16 @@
                                        placeholder="0" step="1" min="1" required>
                             </div>
                         </div>
+                        <div class="mb-4">
+                            <label for="transferCategoria" class="form-label">Categoría</label>
+                            <select class="form-control" id="transferCategoria">
+                                <option value="">Selecciona una categoría</option>
+                                <option value="Arriendo">Arriendo</option>
+                                <option value="Comida">Comida</option>
+                                <option value="Servicios">Servicios</option>
+                                <option value="Otros">Otros</option>
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-primary w-100">
                             <i class="fas fa-check"></i> Confirmar transferencia
                         </button>
@@ -254,6 +264,7 @@
 
             $('#transferContactName').text(contactoSeleccionado.nombre);
             $('#transferAmount').val('');
+            $('#transferCategoria').val('');
             $('#transferError').hide();
             new bootstrap.Modal(document.getElementById('transferModal')).show();
         }
@@ -271,8 +282,16 @@
                 return;
             }
 
+            const limiteRaw = parseInt(AuraStorage.getLimite(), 10);
+            const limiteDiario = isNaN(limiteRaw) ? 0 : limiteRaw;
+            if (limiteDiario > 0 && monto > limiteDiario) {
+                AuraUI.mostrarError('#transferError', `El monto supera tu límite diario de ${AuraUI.formatCLP(limiteDiario)}`);
+                return;
+            }
+
             const nuevoSaldo = saldoActual - monto;
             AuraStorage.setSaldo(nuevoSaldo);
+            // D4: la categoría seleccionada no se guarda en el movimiento
             AuraStorage.pushMovimiento({
                 tipo: 'Transferencia',
                 descripcion: `Transferencia a ${contactoSeleccionado.nombre}`,

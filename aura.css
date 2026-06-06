@@ -1,18 +1,21 @@
 :root {
-    --primary: #7C3AED;
-    --secondary: #06B6D4;
-    --gradient: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
+    --primary: #1A2744;
+    --secondary: #3B7DD8;
+    --gradient: linear-gradient(135deg, #0F1C35 0%, #1D3461 100%);
+    --gradient-dark: linear-gradient(145deg, #0B1426 0%, #162B4D 55%, #0F1E3C 100%);
+    --body-bg: #EAEFF6;
+    --card-shadow: 0 4px 20px rgba(10, 20, 50, 0.09);
     --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* === Base === */
 body {
-    background: #F3F4F6;
+    background: var(--body-bg);
     font-family: var(--font);
 }
 
 body.page-auth {
-    background: var(--gradient);
+    background: var(--gradient-dark);
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -20,68 +23,79 @@ body.page-auth {
 
 /* === Navbar === */
 .navbar {
-    background: var(--gradient);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background: var(--gradient-dark);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.30);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .navbar-brand {
     font-weight: 700;
     font-size: 1.3rem;
+    letter-spacing: 0.5px;
 }
 
 /* === Form controls === */
 .form-control {
     border-radius: 8px;
-    border: 2px solid #e2e8f0;
+    border: 1.5px solid #D4DBE8;
     padding: 12px 15px;
     font-size: 0.95rem;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
+    background: #FAFBFD;
 }
 
 .form-control:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.15);
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(59, 125, 216, 0.12);
+    background: #FFFFFF;
 }
 
 .form-label {
     font-weight: 600;
     color: var(--primary);
     margin-bottom: 8px;
+    font-size: 0.82rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .input-group-text {
-    background: white;
-    border: 2px solid #e2e8f0;
+    background: #FAFBFD;
+    border: 1.5px solid #D4DBE8;
 }
 
 /* === Alerts === */
 .alert {
     border-radius: 8px;
     border: none;
+    border-left: 4px solid transparent;
     animation: slideIn 0.3s ease-out;
 }
 
 .alert-success {
-    background: #dcfce7;
-    color: #166534;
+    background: #E9F5EF;
+    color: #0B5035;
+    border-left-color: #1A9C62;
 }
 
 .alert-danger {
-    background: #fee2e2;
-    color: #991b1b;
+    background: #FEF0F0;
+    color: #7B1C1C;
+    border-left-color: #BE2C2C;
 }
 
 /* === Cards === */
 .card {
     border: none;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border-radius: 14px;
+    box-shadow: var(--card-shadow);
+    background: #FFFFFF;
 }
 
 .card-header {
     background: var(--gradient);
     color: white;
-    border-radius: 12px 12px 0 0 !important;
+    border-radius: 14px 14px 0 0 !important;
     padding: 20px 25px;
     border: none;
 }
@@ -93,6 +107,7 @@ body.page-auth {
     display: flex;
     align-items: center;
     gap: 10px;
+    letter-spacing: 0.3px;
 }
 
 /* === Modals === */
@@ -108,24 +123,26 @@ body.page-auth {
 
 /* === Botón volver (compartido) === */
 .back-btn {
-    background: #f1f5f9;
+    background: #EEF2FA;
     color: var(--primary);
     border: none;
     border-radius: 8px;
-    padding: 10px 15px;
+    padding: 11px 15px;
     text-decoration: none;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
     display: inline-flex;
     align-items: center;
     gap: 8px;
     width: 100%;
     justify-content: center;
     margin-top: 15px;
+    letter-spacing: 0.2px;
+    font-size: 0.92rem;
 }
 
 .back-btn:hover {
-    background: #e2e8f0;
+    background: #DDE6F5;
     color: var(--secondary);
 }
 
@@ -147,14 +164,14 @@ body.page-auth {
     max-width: 400px;
     width: 100%;
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 28px 64px rgba(0, 0, 0, 0.32), 0 0 0 1px rgba(255, 255, 255, 0.07);
+    padding: 45px 40px;
     animation: slideUp 0.6s ease-out;
 }
 
 .login-container .form-control {
-    border: 1px solid #ddd;
+    border: 1.5px solid #DDE2EC;
 }
 
 .login-header {
@@ -163,7 +180,7 @@ body.page-auth {
 }
 
 .login-header i {
-    font-size: 3rem;
+    font-size: 2.8rem;
     color: var(--primary);
     margin-bottom: 15px;
 }
@@ -172,26 +189,28 @@ body.page-auth {
     color: var(--primary);
     font-weight: 700;
     margin-bottom: 5px;
+    letter-spacing: -0.5px;
 }
 
 .login-header p {
-    color: #666;
-    font-size: 0.95rem;
+    color: #64748B;
+    font-size: 0.93rem;
 }
 
 .btn-login {
     background: var(--gradient);
     border: none;
-    padding: 12px;
+    padding: 13px;
     font-weight: 600;
     border-radius: 8px;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
     color: white;
+    letter-spacing: 0.4px;
 }
 
 .btn-login:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
+    box-shadow: 0 12px 28px rgba(10, 20, 50, 0.35);
     color: white;
 }
 
@@ -201,15 +220,15 @@ body.page-auth {
 }
 
 .back-link a {
-    color: var(--primary);
+    color: var(--secondary);
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
 }
 
 .back-link a:hover {
-    color: var(--secondary);
+    color: var(--primary);
     text-decoration: underline;
 }
 
@@ -217,77 +236,116 @@ body.page-auth {
    MENU
    =========================== */
 .saldo-card {
-    background: var(--gradient);
+    background: var(--gradient-dark);
     color: white;
-    border-radius: 12px;
-    padding: 30px;
+    border-radius: 16px;
+    padding: 36px 30px;
     text-align: center;
-    margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
+    margin-bottom: 28px;
+    box-shadow: 0 20px 52px rgba(10, 20, 50, 0.28), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.saldo-card::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -40px;
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle, rgba(59, 125, 216, 0.14) 0%, transparent 68%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.saldo-card::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -30px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(59, 125, 216, 0.07) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
 }
 
 .saldo-card h5 {
-    opacity: 0.9;
-    font-size: 0.95rem;
+    opacity: 0.55;
+    font-size: 0.75rem;
     margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
 }
 
 .saldo-card .saldo-amount {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: 700;
+    letter-spacing: -1px;
+    color: #E8EEF8;
 }
 
 .menu-buttons {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 15px;
-    margin-bottom: 30px;
+    gap: 10px;
+    margin-bottom: 24px;
 }
 
 .menu-btn {
     background: white;
     border: none;
-    border-radius: 10px;
-    padding: 20px;
+    border-left: 4px solid transparent;
+    border-radius: 12px;
+    padding: 18px 22px;
     text-decoration: none;
     color: var(--primary);
     font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.22s ease;
+    box-shadow: 0 2px 10px rgba(10, 20, 50, 0.06);
     display: flex;
     align-items: center;
-    gap: 15px;
-    font-size: 1.1rem;
+    gap: 16px;
+    font-size: 1rem;
 }
 
-.menu-btn i { font-size: 1.5rem; }
+.menu-btn i {
+    font-size: 1.2rem;
+    color: var(--secondary);
+    width: 22px;
+    text-align: center;
+}
 
 .menu-btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.2);
-    color: var(--secondary);
+    transform: translateX(5px);
+    box-shadow: 0 6px 20px rgba(10, 20, 50, 0.11);
+    color: var(--primary);
+    border-left-color: var(--secondary);
 }
 
 .logout-btn {
-    background: #EF4444;
-    color: white;
-    border: none;
+    background: transparent;
+    color: #8B96A8;
+    border: 1.5px solid #D4DBE8;
     border-radius: 8px;
-    padding: 12px 20px;
+    padding: 11px 20px;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
     display: flex;
     align-items: center;
     gap: 8px;
     justify-content: center;
     width: 100%;
     cursor: pointer;
+    font-size: 0.9rem;
 }
 
 .logout-btn:hover {
-    background: #DC2626;
-    transform: translateY(-2px);
-    color: white;
+    background: #FEF0F0;
+    border-color: #BE2C2C;
+    color: #BE2C2C;
 }
 
 /* ===========================
@@ -299,18 +357,19 @@ body.page-auth {
 }
 
 .btn-deposit {
-    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    background: linear-gradient(135deg, #0C6B4E 0%, #0D9268 100%);
     border: none;
-    padding: 12px;
+    padding: 13px;
     font-weight: 600;
     border-radius: 8px;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
     color: white;
+    letter-spacing: 0.3px;
 }
 
 .btn-deposit:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 10px 24px rgba(12, 107, 78, 0.32);
     color: white;
 }
 
@@ -324,89 +383,97 @@ body.page-auth {
 
 .contact-item {
     background: white;
-    border: 2px solid #e2e8f0;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 12px;
+    border: 1.5px solid #E4EAF3;
+    border-radius: 12px;
+    padding: 15px 18px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: all 0.3s ease;
+    transition: all 0.22s ease;
 }
 
 .contact-item:hover {
-    border-color: var(--primary);
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
+    border-color: var(--secondary);
+    box-shadow: 0 4px 16px rgba(59, 125, 216, 0.10);
+    transform: translateX(3px);
 }
 
 .contact-info strong {
     display: block;
     color: var(--primary);
-    margin-bottom: 4px;
+    margin-bottom: 3px;
+    font-size: 0.97rem;
 }
 
-.contact-info small { color: #666; }
+.contact-info small {
+    color: #64748B;
+    font-size: 0.82rem;
+}
 
 .btn-select {
-    background: var(--primary);
+    background: var(--gradient);
     color: white;
     border: none;
-    border-radius: 6px;
-    padding: 8px 15px;
+    border-radius: 7px;
+    padding: 8px 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.22s ease;
+    font-size: 0.87rem;
 }
 
 .btn-select:hover {
-    background: var(--secondary);
-    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(10, 20, 50, 0.25);
+    transform: translateY(-1px);
 }
 
 .btn-delete {
-    background: #EF4444;
-    color: white;
-    border: none;
-    border-radius: 6px;
+    background: transparent;
+    color: #94A3B8;
+    border: 1.5px solid #E4EAF3;
+    border-radius: 7px;
     padding: 6px 10px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.22s ease;
     margin-left: 8px;
 }
 
 .btn-delete:hover {
-    background: #DC2626;
-    transform: translateY(-2px);
+    background: #FEF0F0;
+    border-color: #BE2C2C;
+    color: #BE2C2C;
 }
 
 .btn-add-contact {
-    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    background: var(--gradient);
     color: white;
     border: none;
     border-radius: 8px;
-    padding: 12px;
+    padding: 13px;
     width: 100%;
     font-weight: 600;
     margin-bottom: 20px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
+    letter-spacing: 0.3px;
 }
 
 .btn-add-contact:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 10px 26px rgba(10, 20, 50, 0.28);
 }
 
 .no-contacts {
     text-align: center;
     padding: 30px;
-    color: #666;
+    color: #94A3B8;
 }
 
 .no-contacts i {
-    font-size: 3rem;
-    color: #cbd5e1;
+    font-size: 2.5rem;
+    color: #CBD5E1;
     margin-bottom: 15px;
     display: block;
 }
@@ -420,44 +487,63 @@ body.page-auth {
 }
 
 .saldo-header {
-    background: var(--gradient);
+    background: var(--gradient-dark);
     color: white;
-    border-radius: 12px;
-    padding: 25px;
-    margin-bottom: 25px;
-    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.2);
+    border-radius: 14px;
+    padding: 28px 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 14px 36px rgba(10, 20, 50, 0.22);
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.saldo-header::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -30px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(59, 125, 216, 0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
 }
 
 .saldo-header h5 {
-    font-size: 0.9rem;
-    opacity: 0.9;
+    font-size: 0.75rem;
+    opacity: 0.55;
     margin-bottom: 10px;
-    font-weight: 600;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .saldo-header .saldo-amount {
-    font-size: 2.5rem;
+    font-size: 2.4rem;
     font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #E8EEF8;
 }
 
 .transaction-item {
-    border-bottom: 1px solid #e2e8f0;
-    padding: 15px 0;
+    border-bottom: 1px solid #EDF1F7;
+    padding: 16px 0;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .transaction-item:last-child { border-bottom: none; }
 
 .transaction-item:hover {
-    background: #f8fafc;
-    padding-left: 25px;
-    padding-right: 10px;
-    margin-left: -15px;
-    margin-right: -15px;
+    background: #F6F9FE;
+    padding-left: 12px;
+    padding-right: 6px;
+    margin-left: -12px;
+    margin-right: -6px;
+    border-radius: 8px;
 }
 
 .transaction-info { flex: 1; }
@@ -466,32 +552,34 @@ body.page-auth {
     font-weight: 600;
     color: var(--primary);
     margin-bottom: 4px;
+    font-size: 0.95rem;
 }
 
 .transaction-info p {
     margin: 0;
-    font-size: 0.9rem;
-    color: #666;
+    font-size: 0.87rem;
+    color: #64748B;
 }
 
 .transaction-amount {
     text-align: right;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    letter-spacing: -0.3px;
 }
 
-.amount-ingreso { color: #10B981; }
-.amount-egreso  { color: #EF4444; }
+.amount-ingreso { color: #0C6B4E; }
+.amount-egreso  { color: #BE2C2C; }
 
 .empty-state {
     text-align: center;
     padding: 40px 20px;
-    color: #666;
+    color: #94A3B8;
 }
 
 .empty-state i {
-    font-size: 3rem;
-    color: #cbd5e1;
+    font-size: 2.5rem;
+    color: #CBD5E1;
     margin-bottom: 15px;
     display: block;
 }
@@ -500,9 +588,9 @@ body.page-auth {
    RESPONSIVE
    =========================== */
 @media (max-width: 768px) {
-    .saldo-card, .saldo-header { padding: 20px; }
+    .saldo-card, .saldo-header { padding: 24px 18px; }
     .saldo-card .saldo-amount,
-    .saldo-header .saldo-amount { font-size: 2rem; }
+    .saldo-header .saldo-amount { font-size: 2.1rem; }
     .transaction-item { flex-direction: column; }
     .transaction-amount { text-align: left; margin-top: 8px; }
 }

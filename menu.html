@@ -40,6 +40,10 @@
                         <i class="fas fa-history"></i>
                         <span>Últimos Movimientos</span>
                     </a>
+                    <a href="perfil.html" class="menu-btn">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Mi Perfil</span>
+                    </a>
                 </div>
 
                 <div class="text-center">
@@ -64,7 +68,8 @@
         $(document).ready(function() {
             if (!AuraAuth.requireSesion()) return;
 
-            $('#usuarioDisplay').text(AuraStorage.getUsuario());
+            const nombrePerfil = AuraStorage.getPerfil();
+            $('#usuarioDisplay').text(nombrePerfil !== null ? nombrePerfil : AuraStorage.getUsuario());
             $('#saldoDisplay').text(AuraUI.formatCLP(AuraStorage.getSaldo()));
 
             $('#btnLogout').click(function() {
